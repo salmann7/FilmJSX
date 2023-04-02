@@ -13,6 +13,11 @@ const Movie = ({movie, i}) => {
         <Link to={`/movie/${movie.id}`} className={classes.links}>
            {movie?.poster_path ? <img alt={movie?.title} className={classes.image} src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`} /> : null}
            <Typography className={classes.title} variant='h6'>{movie?.title}</Typography>
+           <Tooltip title={`${movie?.vote_average}/10`} disableTouchListener >
+              <div>
+                <Rating readOnly value={movie?.vote_average/2} precision={0.1}/> 
+              </div>
+           </Tooltip>
         </Link>
       </Grow>
     </Grid>
