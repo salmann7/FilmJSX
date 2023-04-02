@@ -2,9 +2,13 @@ import React from 'react'
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { useGetMoviesQuery } from '../../services/TMDB'
 import MovieList from '../../components/MovieList/MovieList';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 const Movies = () => {
-  const { data, error, isLoading } = useGetMoviesQuery();
+  const [ page, setPage] = useState(1);
+  const { genreIdOrCategoryName } = useSelector((state) => (state.currentGenreOrCategory));
+  const { data, error, isLoading } = useGetMoviesQuery( {genreIdOrCategoryName, page});
 
   if(isLoading){
     return (

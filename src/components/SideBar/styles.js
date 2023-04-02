@@ -37,6 +37,9 @@ export default makeStyles((theme) => ({
     },
     link: {
         textDecoration: 'none',
-        color: theme.palette.text.primary
+        color: theme.palette.text.primary,
+    },
+    genreImages: {
+        filter: theme.palette.mode === 'dark' ? 'invert(1)' : 'dark',
     }
 }))
