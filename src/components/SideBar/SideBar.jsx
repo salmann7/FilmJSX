@@ -2,16 +2,13 @@ import React from 'react'
 import { Divider, List, ListItem, ListItemButton, ListItemText, ListSubheader, ListItemIcon, Box, CircularProgress } from "@mui/material";
 import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
+import { useGetGenresQuery } from '../../services/TMDB';
+import genreIcons from '../../assets/genres';
+import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 
-const demoCategories = [
-    {label: 'Animation', value: 'animation'},
-    {label: 'Sci-Fi', value: 'sci_fi'},
-    {label: 'Action', value: 'action'},
-    {label: 'Comedy', value: 'comedy'},
-    {label: 'Horror', value: 'horror'},
-]
 const categories = [
     {label: 'Popular', value: 'popular'},
     {label: 'Top Rated', value: 'top_rated'},
@@ -22,6 +19,8 @@ const categories = [
 const SideBar = ({setMobileOpen}) => {
     const classes = useStyles();
     const theme = useTheme();
+    const { data, error, isLoading } = useGetGenresQuery();
+    const dispatch = useDispatch();
 
   return (
     <>
@@ -37,8 +36,11 @@ const SideBar = ({setMobileOpen}) => {
         <ListSubheader>Categories</ListSubheader>
         {categories.map(({label, value}) => (
             <Link to="/" key={value} className={classes.link}>
-                <ListItem onClick={()=>({})} disablePadding>
+                <ListItem onClick={()=>(dispatch(selectGenreOrCategory(value)))} disablePadding>
                     <ListItemButton>
+                        <ListItemIcon>
+                            <img src={genreIcons[label.toLowerCase()]} height={30} className={classes.genreImages}/>
+                        </ListItemIcon>
                         <ListItemText primary={label}/>
                     </ListItemButton>
                 </ListItem>
@@ -48,15 +50,22 @@ const SideBar = ({setMobileOpen}) => {
       <Divider />
       <List>
         <ListSubheader>Genres</ListSubheader>
-        {demoCategories.map(({label, value}) => (
-            <Link to="/" key={value} className={classes.link}>
-                <ListItem onClick={()=>({})} disablePadding>
+        {!isLoading ? (data?.genres.map(({name, id}) => (
+            <Link to="/" key={name} className={classes.link}>
+                <ListItem onClick={()=>(dispatch(selectGenreOrCategory(id)))} disablePadding>
                     <ListItemButton>
-                        <ListItemText primary={label}/>
+                        <ListItemIcon>
+                            <img src={genreIcons[name.toLowerCase()]} height={30} className={classes.genreImages}/>
+                        </ListItemIcon>
+                        <ListItemText primary={name}/>
                     </ListItemButton>
                 </ListItem>
             </Link>
-        ))}
+        ))) : (
+            <Box display='flex' justifyContent='center' > 
+                <CircularProgress size='4em' />
+            </Box>
+        )}
       </List>
     </>
   )
