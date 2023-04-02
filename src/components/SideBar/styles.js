@@ -34,5 +34,9 @@ export default makeStyles((theme) => ({
     },
     mBrand: {
         fontSize: '1.25em'
+    },
+    link: {
+        textDecoration: 'none',
+        color: theme.palette.text.primary
     }
 }))
