@@ -26,14 +26,26 @@ export const tmdbApi = createApi({
             }
         }),
 
+        //get movie
+        getMovie: builder.query({
+            query: (id) => `movie/${id}?append_to_response=videos,credits&api_key=${tmdbApiKey}`
+        }),
+
         //get genres
         getGenres: builder.query({
             query: () => `genre/movie/list?api_key=${tmdbApiKey}`
-        })
+        }),
+
+        //get specific movie list
+        getRecommendations: builder.query({
+            query: ({ movie_id, list }) => `/movie/${movie_id}/${list}?api_key=${tmdbApiKey}`,
+          }),
     })
 });
 
 export const {
     useGetMoviesQuery,
-    useGetGenresQuery 
+    useGetGenresQuery,
+    useGetMovieQuery,
+    useGetRecommendationsQuery
 } = tmdbApi;
