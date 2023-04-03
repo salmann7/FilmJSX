@@ -16,6 +16,7 @@ const SearchBar = () => {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter'){
         dispatch(searchMovie(query));
+        setQuery('');
     }
   }
 
