@@ -105,7 +105,7 @@ const MovieInformation = () => {
         </Typography>
         <Grid item container spacing={2}>
           {data?.credits?.cast?.slice(0, 6)?.map((character, i) => (
-            <Grid key={i} item xs={4} md={2} component={Link} to={`/actors/${character?.id}`} style={{ textDecoration: 'none' }}>
+            <Grid key={i} item xs={4} md={2} component={Link} to={`/actor/${character?.id}`} style={{ textDecoration: 'none' }}>
               <img
                 className={classes.castImage}
                 src={character?.profile_path ? `https://image.tmdb.org/t/p/w500/${character?.profile_path}` : noImage}
