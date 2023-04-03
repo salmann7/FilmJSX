@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import useStyles from './styles';
 import SideBar from '../SideBar/SideBar';
+import SearchBar from '../SearchBar/SearchBar';
 
 const Navbar = () => {
 
@@ -27,7 +28,7 @@ const Navbar = () => {
           <IconButton color='inherit' sx={{ml:1}} onClick={() => ({})} >
             {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
-          {!isMobile && 'search.........'}
+          {!isMobile && <SearchBar />}
           <div>
             {!isAuthenticated ? (
               <Button color='inherit' onClick={() => ({})}>
@@ -40,7 +41,7 @@ const Navbar = () => {
               </Button>
             )}
           </div>
-          {isMobile && 'search.........'}
+          {isMobile && <SearchBar />}
         </Toolbar>
       </AppBar>
       <div>
